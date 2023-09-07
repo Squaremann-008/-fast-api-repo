@@ -6,29 +6,28 @@ app = FastAPI()
 
 @app.get("/info/")
 async def get_info(
-    slack_name: str = Query(Oiseh, description="Slack name"),
-    track: str = Query(Backend, description="Track")
+    slack_name: str = Query('Oiseh', description="Slack name"),
+    track: str = Query('Backend', description="Track")
 ):
     try:
         # Get current day of the week and UTC time
         current_day = datetime.utcnow().strftime("%A")
-        current_time = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC")
+        current_time = datetime.utcnow().strftime("%H:%M:%S UTC")
 
         # Get the GitHub URL of the file being run
-        file_url = f"https://github.com/your-username/your-repo/blob/main/{os.path.basename(__file__)}"
-
+        file_url = "https://github.com/Squaremann-008/-fast-api-repo/blob/main/stage1/app.py"
         # Get the GitHub URL of the full source code
-        full_source_code_url = "https://github.com/your-username/your-repo"
+        full_source_code_url = "https://github.com/Squaremann-008/-fast-api-repo/"
 
         # Prepare the response JSON
         response_data = {
             "slack_name": slack_name,
             "current_day": current_day,
-            "current_utc_time": current_time,
+            "utc_time": current_time,
             "track": track,
-            "file_github_url": file_url,
-            "full_source_code_github_url": full_source_code_url,
-            "status_code": "success"
+            "github_file_url": file_url,
+            "github_repo_url": full_source_code_url,
+            "status_code": 200
         }
 
         return response_data
