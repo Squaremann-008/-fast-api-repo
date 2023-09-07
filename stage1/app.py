@@ -4,15 +4,15 @@ import os
 
 app = FastAPI()
 
-@app.get("/info/")
-async def get_info(
+@app.get("/api/")
+async def api_endpoint(
     slack_name: str = Query('Oiseh', description="Slack name"),
-    track: str = Query('Backend', description="Track")
+    track: str = Query('backend', description="Track")
 ):
     try:
         # Get current day of the week and UTC time
         current_day = datetime.utcnow().strftime("%A")
-        current_time = datetime.utcnow().strftime("%H:%M:%S UTC")
+        current_time = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
 
         # Get the GitHub URL of the file being run
         file_url = "https://github.com/Squaremann-008/-fast-api-repo/blob/main/stage1/app.py"
